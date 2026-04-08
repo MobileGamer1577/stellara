@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
 import 'favorites_screen.dart';
 import 'library_screen.dart';
 import 'player_screen.dart';
@@ -19,6 +18,9 @@ class StellaraApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
+        // Deaktiviert den Splash/Ripple Effekt in der gesamten App
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
           brightness: Brightness.dark,
@@ -31,7 +33,6 @@ class StellaraApp extends StatelessWidget {
             fontWeight: FontWeight.w800,
             letterSpacing: -1.0,
           ),
-          bodyLarge: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.2),
           bodyMedium: TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
@@ -50,65 +51,65 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
 
+  // Nur noch 3 Screens: Playlist (Library), Favoriten, Player
   final List<Widget> _screens = [
-    const HomeScreen(),
-    const FavoritesScreen(),
     const LibraryScreen(),
+    const FavoritesScreen(),
     const PlayerScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true, // Erlaubt der Navigation, über dem Content zu schweben
+      extendBody: true,
       body: _screens[_selectedIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(
-          20,
+          60,
           0,
-          20,
+          60,
           30,
-        ), // Erzeugt den Schwebe-Effekt
+        ), // Größerer Seitenabstand für "klein & mittig"
         child: Container(
+          height: 65,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), // Pillen-Form
+            borderRadius: BorderRadius.circular(35),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                blurRadius: 20,
-                spreadRadius: 2,
-              ),
+              BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 20),
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              onTap: (index) => setState(() => _selectedIndex = index),
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: const Color(0xFF1A1A1A),
-              selectedItemColor: Theme.of(context).colorScheme.primary,
-              unselectedItemColor: Colors.grey,
-              showSelectedLabels: false, // Moderner Look ohne Labels
-              showUnselectedLabels: false,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_filled),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favoriten',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.library_music),
-                  label: 'Bibliothek',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.play_circle_fill),
-                  label: 'Player',
-                ),
-              ],
+            borderRadius: BorderRadius.circular(35),
+            child: Theme(
+              // Entfernt den Ripple-Effekt speziell für die Navigation
+              data: Theme.of(context).copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: BottomNavigationBar(
+                currentIndex: _selectedIndex,
+                onTap: (index) => setState(() => _selectedIndex = index),
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: const Color(0xFF1A1A1A),
+                selectedItemColor: Theme.of(context).colorScheme.primary,
+                unselectedItemColor: Colors.grey.shade600,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.library_music_rounded),
+                    label: 'Playlist',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite_rounded),
+                    label: 'Favoriten',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.play_arrow_rounded, size: 32),
+                    label: 'Player',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
