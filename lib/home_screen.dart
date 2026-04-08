@@ -1,36 +1,50 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _displayedText = "";
+  final String _fullText = "Willkommen bei Stellara";
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTyping();
+  }
+
+  void _startTyping() {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      if (_currentIndex < _fullText.length) {
+        setState(() {
+          _displayedText += _fullText[_currentIndex];
+          _currentIndex++;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212), // Modernes Dunkelgrau
+      backgroundColor: const Color(0xFF121212),
       body: Center(
-        child: TweenAnimationBuilder<double>(
-          tween: Tween<double>(begin: 0.0, end: 1.0),
-          duration: const Duration(
-            milliseconds: 2500,
-          ), // 2,5 Sekunden Animation
-          curve: Curves.easeIn,
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.translate(
-                offset: Offset(0, 20 * (1 - value)), // Leichter Slide-Up Effekt
-                child: child,
-              ),
-            );
-          },
-          child: const Text(
-            'Willkommen bei Stellara',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.w300,
-              letterSpacing: 1.5,
-            ),
+        child: Text(
+          _displayedText,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28,
+            fontWeight: FontWeight.w300, // Dünne Schrift für Apple-Look
+            letterSpacing: 1.2,
+            fontFamily: 'SF Pro', // Nutzt System-Font, falls verfügbar
           ),
         ),
       ),
