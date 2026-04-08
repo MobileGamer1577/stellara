@@ -6,23 +6,13 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
-          'Bibliothek',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: const Center(
+      // Nutzt das moderne Dunkelgrau aus dem Theme
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Center(
         child: Text(
-          'Deine Playlists',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 18,
-            letterSpacing: 0.5,
-          ),
+          'Bibliothek',
+          // Nutzt die dicke Apple-Schriftart aus dem Theme
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
     );

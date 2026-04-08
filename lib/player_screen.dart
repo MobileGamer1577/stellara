@@ -5,16 +5,14 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFF121212),
+    return Scaffold(
+      // Nutzt das moderne Dunkelgrau aus dem Theme
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Text(
           'Player',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
+          // Nutzt die dicke Apple-Schriftart aus dem Theme
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
     );
