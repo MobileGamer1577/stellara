@@ -30,6 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  file_picker: ^8.0.0      # Erlaubt das Auswählen von MP3-Dateien
+  path_provider: ^2.1.2    # Hilft beim Finden von Pfaden auf dem Handy
+  audioplayers: ^5.2.1     # Das Herzstück zum Abspielen
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

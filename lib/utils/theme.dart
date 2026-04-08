@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Helles Design
-  static ThemeData get lightTheme {
-    return ThemeData(
-      primarySwatch: Colors.deepPurple,
-      scaffoldBackgroundColor: Colors.white,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        titleTextStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      useMaterial3: true,
-    );
-  }
+  // Unsere aktuelle Hauptfarbe
+  static const Color primaryPurple = Color(0xFF6A1B9A);
+  static const Color accentPurple = Color(0xFF9C27B0);
 
-  // Dunkles Design
-  static ThemeData get darkTheme {
-    return ThemeData.dark().copyWith(
-      // Hier können spezifische Anpassungen für den Dark Mode rein
+  static ThemeData get lilaTheme {
+    return ThemeData(
       useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryPurple,
+        brightness: Brightness.dark, // Cleanerer Look in Dunkel
+        primary: primaryPurple,
+      ),
+      scaffoldBackgroundColor: const Color(
+        0xFF0F0F1A,
+      ), // Sehr dunkles Lila/Schwarz
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+      ),
     );
   }
 }
